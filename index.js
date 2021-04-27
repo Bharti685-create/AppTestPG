@@ -58,11 +58,10 @@ const sql_create = `CREATE TABLE IF NOT EXISTS Books (
 
 
 
-// Start listener
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Server started (http://localhost:3000/) !");
-});
-
+  const listener = app.listen(process.env.PORT || 3000, () => {
+    console.log(`Your app is listening on port ${listener.address().port}`);
+  });
+  
 
 app.get("/", (req, res) => { 
     // res.send("Hello world...");
