@@ -73,6 +73,7 @@ app.get("/about", (req, res) => {
     res.render("about");
 });
 
+
 app.get("/data", (req, res) => {
     const test = {
       title: "Test",
@@ -90,6 +91,22 @@ app.get("/books", (req, res) => {
       res.render("books", { model: result.rows });
     });
   });
+
+  
+// GET /create
+app.get("/create", (req, res) => {
+  res.render("create", { model: {} });
+});
+
+// POST /create
+app.post("/create", (req, res) => {
+  const sql = "INSERT INTO Books (Title, Author, Comments) VALUES ($1, $2, $3)";
+  const book = [req.body.title, req.body.author, req.body.comments];
+  pool.query(sql, book, (err, result) => {
+    // if (err) ...
+    res.redirect("/books");
+  });
+});
 
   // GET /edit/5
 app.get("/edit/:id", (req, res) => {
@@ -112,21 +129,6 @@ app.post("/edit/:id", (req, res) => {
   });
 });
 
-
-// GET /create
-app.get("/create", (req, res) => {
-  res.render("create", { model: {} });
-});
-
-// POST /create
-app.post("/create", (req, res) => {
-  const sql = "INSERT INTO Books (Title, Author, Comments) VALUES ($1, $2, $3)";
-  const book = [req.body.title, req.body.author, req.body.comments];
-  pool.query(sql, book, (err, result) => {
-    // if (err) ...
-    res.redirect("/books");
-  });
-});
 
 // GET /delete/5
 app.get("/delete/:id", (req, res) => {
