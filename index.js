@@ -1,14 +1,27 @@
-require('dotenv').config()
-
 const express = require("express");
 
+const path = require("path");
 const { Pool } = require('pg');
+require('dotenv').config()
+
+const app = express();
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false })); // <--- middleware configuration
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
+
+console.log("Successful connection to the database");
+
+
+
+
 
 const sql_create = `CREATE TABLE IF NOT EXISTS Books (
     Book_ID SERIAL PRIMARY KEY,
@@ -43,23 +56,13 @@ const sql_create = `CREATE TABLE IF NOT EXISTS Books (
     });
   });
 
-const app = express();
+
 
 // Start listener
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server started (http://localhost:3000/) !");
 });
 
-app.get ("/", (req,res) => {
-    res.send ("Hello world...");
-});
-
-app.set("view engine", "ejs");
-
-const path = require("path");
-app.set("views", path.join(__dirname, "views"));
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => { 
     // res.send("Hello world...");
@@ -109,11 +112,6 @@ app.post("/edit/:id", (req, res) => {
   });
 });
 
-// Server configuration
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false })); // <--- middleware configuration
 
 // GET /create
 app.get("/create", (req, res) => {
