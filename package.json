@@ -1,0 +1,28 @@
+{
+  "name": "apptestpg",
+  "version": "1.0.0",
+  "description": "AppTestPG Quiz",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bharti685-create/AppTestPG.git"
+  },
+  "keywords": [
+    "AppTestPG"
+  ],
+  "author": "Bharti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bharti685-create/AppTestPG/issues"
+  },
+  "homepage": "https://github.com/Bharti685-create/AppTestPG#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "pg": "^8.6.0"
+  }
+}
